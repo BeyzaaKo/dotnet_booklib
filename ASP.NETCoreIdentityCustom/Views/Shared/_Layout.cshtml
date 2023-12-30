@@ -1,0 +1,130 @@
+﻿<!-- NAVIGATION BAR -->
+
+
+@using Microsoft.AspNetCore.Identity
+@using ASP.NETCoreIdentityCustom.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<style>
+    .dropdown-item:hover {
+        background-color: #556B2F;
+        color: #FFFF;
+    }
+
+    .dropdown-item:active {
+        background-color: #21421E;
+        color: #FFFF;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookLib</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ASP.NETCoreIdentityCustom.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                
+                
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 32px; color: #FFA500;">B</span>
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 33px; color: #2e8b57;">o</span>
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 30px; color: #3399CC;">o</span>
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 32px; color: #CC3300;">k</span>
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 30px; color: #6600CC">L</span>
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 28px; color: #1e90ff;">i</span>
+                    <span style="font-family: 'Candara'; font-weight: bold; font-size: 30px; color: #FFA500;">b</span>
+                </a>
+               
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <!-- BURASI, KULLANICI GİRİŞ YAPTIYSA GÖRÜNÜYOR -->
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="RoleViews" asp-action="Profile">
+                                    <span style="font-size: 20px; color: #003300;">Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="RoleViews" asp-action="Discover">
+                                    <span style="font-size: 20px; color: #003300;">Discover</span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #003300; font-size: 20px;">
+                                    Books
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <!--BURAYA, EKLEYECEĞİM KİTAP TÜRLERİ GELECEK-->
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Book" asp-action="GetAllBooks">Children's Fiction</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Fantasy</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Romance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Historical</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Graphic Novel</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Science</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Crime</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" asp-controller="RoleViews" asp-action="Books">Horror</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <li>
+                                <!-- Arama Çubuğu Eklemesi -->
+                                <form class="d-flex mr-auto ml-2">
+                                    <input class="form-control me-2" type="search" placeholder="Search book name   " aria-label="Search">
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <partial name="_LoginPartial"/>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - BookLib - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
