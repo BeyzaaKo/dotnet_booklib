@@ -1,0 +1,22 @@
+﻿<!--ROLE-->
+@model ASP.NETCoreIdentityCustom.Models.UserProfile
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@(Model != null ? Model.UserName + "'s Profile" : "User Profile")</title>
+</head>
+<body>
+    @if (Model != null)
+    {
+        <h1>@Model.UserName's Profile</h1>
+        <img src="@Model.ProfilePictureUrl" alt="Profile Picture" />
+        <p>@Model.FullName</p>
+        <p>@Model.Biography</p>
+    }
+    else
+    {
+        <p>Profil bilgileri bulunamadı.</p>
+    }
+</body>
+</html>
